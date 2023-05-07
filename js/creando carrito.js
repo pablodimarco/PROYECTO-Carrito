@@ -3,6 +3,9 @@ const carrito = document.querySelector('#carrito');
 const contenedorCarrito = document.querySelector('#lista-carrito tbody');
 const listaCurso = document.querySelector('#lista-cursos');
 const vaciarCarritoBtn = document.querySelector('#vaciar-carrito');
+// carrito de compras vacio
+let articulosCarrito = [];
+
 
 cargarEventListeners();
 
@@ -27,7 +30,7 @@ function agregarCurso(e) {
 
 // lee el contenido del html al que le dimos click y extrae la info del curso
 function leerDatosCurso(curso){
-    console.log(curso);
+    // console.log(curso);
 
     // creacion de un objeto con el contenido del curso que seleccionamos
     const infoCurso = {
@@ -40,6 +43,40 @@ function leerDatosCurso(curso){
 
     // el text content extrae el texto de la etiqueta
     // el getAttribute toma el atributo data id de la etiqueta a
-    console.log(infoCurso);
+    
+    // agrega elementos al arreglo de carrito
+    articulosCarrito = [...articulosCarrito, infoCurso];
+
+    carritoHTML();
+
 }
 
+// muestra el carrito de compras en el html
+function carritoHTML() {
+    // Limpiar el html antes de mostrarlo debido a que se duplican los elementos sino
+    limpiarHTML();
+
+    // Recorre el carrito y genera el HTML
+    articulosCarrito.forEach( curso => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+        <td>
+            ${curso.titulo}
+        </td>`;
+
+         // agrega el html del carrito en el tbody
+         contenedorCarrito.appendChild(row);
+    });
+
+}
+
+// elimina los cursos del tbody 
+function limpiarHTML() {
+    // forma lenta de limpiar
+    // contenedorCarrito.innerHTML = '';
+
+    // con un while se elimina de manera mas rapida
+    while(contenedorCarrito.firstChild){
+        contenedorCarrito.removeChild(contenedorCarrito.firstChild);
+    }
+};
