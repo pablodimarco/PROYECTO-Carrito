@@ -58,11 +58,16 @@ function carritoHTML() {
 
     // Recorre el carrito y genera el HTML
     articulosCarrito.forEach( curso => {
+
+        // de esta forma creamos una constante por cada elemento la cual es de valor curso, de esta manera nos ahorramos acceder mediante el '.' 
+        const {imagen, titulo, precio, cantidad, id} = curso;
         const row = document.createElement('tr');
         row.innerHTML = `
-        <td>
-            ${curso.titulo}
-        </td>`;
+        <td> img src="${imagen}" width="100"</td>
+        <td>${titulo}</td>
+        <td>${precio}</td>
+        <td>${cantidad}</td>
+        <td><a href="#" class="borrar-curso" data-id="${id}"> X </a></td>`;
 
          // agrega el html del carrito en el tbody
          contenedorCarrito.appendChild(row);
