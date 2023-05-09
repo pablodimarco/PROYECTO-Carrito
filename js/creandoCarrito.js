@@ -106,7 +106,7 @@ function carritoHTML() {
         const row = document.createElement('tr');
         row.innerHTML = `
         <td> 
-        img src="${imagen}" width="100"
+        <img src="${imagen}" width=100>
         </td>
         <td>${titulo}</td>
         <td>${precio}</td>
