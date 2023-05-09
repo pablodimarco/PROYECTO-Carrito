@@ -14,7 +14,7 @@ function cargarEventListeners() {
     listaCurso.addEventListener('click', agregarCurso);
 
     // eliminar un curso del carrito
-    carrito.addEventListener('click', eliminarCusrso);
+    carrito.addEventListener('click', eliminarCurso);
 
     // vaciar el carrito de compras
     vaciarCarritoBtn.addEventListener('click', () => {
@@ -41,7 +41,7 @@ function agregarCurso(e) {
 };
 
 // elimina un curso del carrito 
-function eliminarCusrso(e) {
+function eliminarCurso(e) {
     if(e.target.classList.contains('borrar-curso')){
         const cursoId = e.target.getAttribute('data-id');
 
@@ -105,7 +105,9 @@ function carritoHTML() {
         const {imagen, titulo, precio, cantidad, id} = curso;
         const row = document.createElement('tr');
         row.innerHTML = `
-        <td> img src="${imagen}" width="100"</td>
+        <td> 
+        img src="${imagen}" width="100"
+        </td>
         <td>${titulo}</td>
         <td>${precio}</td>
         <td>${cantidad}</td>
