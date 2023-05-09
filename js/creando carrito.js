@@ -12,6 +12,18 @@ cargarEventListeners();
 function cargarEventListeners() {
     // cuando agregas un curso presionando 'agregar al carrito'
     listaCurso.addEventListener('click', agregarCurso);
+
+    // eliminar un curso del carrito
+    carrito.addEventListener('click', eliminarCusrso);
+
+    // vaciar el carrito de compras
+    vaciarCarritoBtn.addEventListener('click', () => {
+        
+        // vaciamos el arreglo
+        articulosCarrito = [];
+
+        limpiarHTML(); // elimina todo el html
+    });
 };
 
 // funciones 
@@ -28,6 +40,20 @@ function agregarCurso(e) {
     }
 };
 
+// elimina un curso del carrito 
+function eliminarCusrso(e) {
+    if(e.target.classList.contains('borrar-curso')){
+        const cursoId = e.target.getAttribute('data-id');
+
+        // elimina del arreglo de articulosCarrito por el data-id
+        articulosCarrito = articulosCarrito.filter(curso => curso.id !== cursoId);
+
+        // llamada para que actualice el html
+        carritoHTML();
+    }
+};
+
+
 // lee el contenido del html al que le dimos click y extrae la info del curso
 function leerDatosCurso(curso){
     // console.log(curso);
@@ -41,11 +67,27 @@ function leerDatosCurso(curso){
         cantidad: 1
     }
 
+    // revisa si un elemento ya existe en el carrito
+    const existe = articulosCarrito.some(curso => curso.id === infoCurso.id);
+    if(existe) {
+        // actualizamos la cantidad
+        const cursos = articulosCarrito.map(curso =>{
+            if (curso.id === infoCurso.id) {
+                curso.cantidad++;
+                return curso // retorna el objeto actualizado
+            } else {
+                return curso; // retorna los objetos que no son duplicados
+            }
+        });
+        articulosCarrito = [...cursos];
+    } else {
+        // agrega elementos al arreglo de carrito
+    articulosCarrito = [...articulosCarrito, infoCurso];
+    }
+    
     // el text content extrae el texto de la etiqueta
     // el getAttribute toma el atributo data id de la etiqueta a
     
-    // agrega elementos al arreglo de carrito
-    articulosCarrito = [...articulosCarrito, infoCurso];
 
     carritoHTML();
 
